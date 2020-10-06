@@ -38,14 +38,19 @@ def make_chains(text_string):
         >>> chains[('there','juanita')]
         [None]
     """
-    text_string = text_string.split()
-    for i in range(len(text_string) - 1):
-    print text_string[i], text_string[i + 1]
-
-    chains = {}
-
     # your code goes here
-
+    text_string = text_string.split()
+    chains = {}
+  
+    for i in range(len(text_string) - 2):
+        chains_key = (text_string[i], text_string[i + 1])
+        chains_value = text_string[i+2]
+        
+        if chains_key not in chains:
+            chains[chains_key] = []
+            
+        chains[chains_key].append(chains_value)
+    
     return chains
 
 
