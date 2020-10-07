@@ -41,9 +41,9 @@ def make_chains(text_string):
     text_string = text_string.split()
     chains = {}
   
-    for i in range(len(text_string) - 2):
-        chains_key = (text_string[i], text_string[i + 1])
-        chains_value = text_string[i+2]
+    for i in range(len(text_string) - 3):
+        chains_key = (text_string[i], text_string[i + 1], text_string[i + 2])
+        chains_value = text_string[i+3]
         
         if chains_key not in chains:
             chains[chains_key] = []
@@ -60,21 +60,30 @@ def make_text(chains):
 
     # your code goes here
     random_key = random.choice(list(chains))
-    words = [random_key[0], random_key[1]]
+    # check if the key is a capital letter
+    while True:
+        if random_key[0][0].isupper():
+            break
+        else:
+            random_key = random.choice(list(chains))
+
+        
+    words = [random_key[0], random_key[1], random_key[2]]
     random_value = choice(chains[random_key])
 
     while random_value is not None:
         words.append(random_value)
-        random_key = (random_key[1], random_value)
+        random_key = (random_key[1], random_key[2], random_value)
         if random_key in chains:
             random_value = choice(chains[random_key])
         else:
             break        
 
+
     return ' '.join(words)
 
 
-input_path = 'green-eggs.txt'
+input_path = 'gettysburg.txt'
 
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
